@@ -1,31 +1,24 @@
+import os
+
 from appium import webdriver
 
 
-def start_driver(context, appium_url, capabilities, app, sim=False):
-    app_path = '/Users/ivanramirez/PycharmProjects/testing-mobile-template-py/apps/' + app
+def start_driver(context, appium_url, capabilities, app):
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    app_path = root_dir + '/apps/' + app
     desired_capabilities = capabilities
-
     context.platform = desired_capabilities.get('platformName')
-
-    if context.platform == 'Android':
-        app_path = app_path + '.apk'
-    elif context.platform == 'iOS':
-        if sim:
-            app_path = app_path + '.ipa'
-        else:
-            app_path = app_path + '.app'
-
     desired_capabilities['app'] = app_path
     print(desired_capabilities)
 
     context.driver = webdriver.Remote(appium_url, desired_capabilities)
 
     if context.platform == 'Android':
-        from pages.android.onboarding_page import OnboardingPage
+        from pages.android.login_page import LogInPage
     elif context.platform == 'iOS':
-        from pages.ios.onboarding_page import OnboardingPage
+        from pages.android.login_page import LogInPage
 
-    context.onboarding_page = OnboardingPage(context.driver)
+    context.login_page = LogInPage(context.driver)
 
 
 def stop_driver(context):
