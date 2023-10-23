@@ -13,3 +13,11 @@ def step_impl(context, page):
         subprocess.Popen(
             'adb shell am start -W -a android.intent.action.VIEW -d "mydemoapprn://store-overview" com.saucelabs.mydemoapp.rn',
             shell=True)
+
+
+@Given('I log in to the app with username "{username}" and password "{password}"')
+def step_impl(context, username, password):
+    context.login_page.validate_page()
+    context.login_page.send_keys_username_input(username)
+    context.login_page.send_keys_password_input(password)
+    context.login_page.click_login_button()

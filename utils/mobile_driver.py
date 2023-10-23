@@ -19,14 +19,17 @@ def start_driver(context, appium_url, capabilities, app):
         options.load_capabilities(desired_capabilities)
 
         from features.pages.android.login_page import LogInPage
+        from features.pages.android.checkout_address_page import CheckoutAddressPage
     elif context.platform == 'iOS':
         options = XCUITestOptions()
         options.load_capabilities(desired_capabilities)
 
-        from features.pages.android.login_page import LogInPage
+        from features.pages.ios.login_page import LogInPage
+        from features.pages.ios.checkout_address_page import CheckoutAddressPage
 
     context.driver = webdriver.Remote(appium_url, options=options)
     context.login_page = LogInPage(context.driver)
+    context.checkout_address_page = CheckoutAddressPage(context.driver)
 
 
 def stop_driver(context):
