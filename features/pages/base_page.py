@@ -50,7 +50,7 @@ class BasePage:
 
     def find_element(self, *loc):
         try:
-            WebDriverWait(self.driver, WAIT_TIMER).until(EC.visibility_of_element_located(*loc))
+            WebDriverWait(self.driver, WAIT_TIMER).until(EC.visibility_of_element_located(loc))
             return self.driver.find_element(*loc)
         except TimeoutException as e:
             raise e
@@ -70,30 +70,30 @@ class BasePage:
 
     def is_element_found(self, *loc):
         try:
-            WebDriverWait(self.driver, WAIT_TIMER).until(EC.visibility_of_element_located(*loc))
+            WebDriverWait(self.driver, WAIT_TIMER).until(EC.visibility_of_element_located(loc))
             return True
         except TimeoutException:
             return False
 
     def is_element_clickable(self, *loc):
         try:
-            WebDriverWait(self.driver, WAIT_TIMER).until(EC.element_to_be_clickable(*loc))
+            WebDriverWait(self.driver, WAIT_TIMER).until(EC.element_to_be_clickable(loc))
             return True
         except TimeoutException:
             return False
 
     def is_element_enabled(self, *loc):
         try:
-            WebDriverWait(self.driver, WAIT_TIMER).until(EC.visibility_of_element_located(*loc))
+            WebDriverWait(self.driver, WAIT_TIMER).until(EC.visibility_of_element_located(loc))
             return self.driver.find_element(*loc).is_enabled()
         except TimeoutException:
             return False
 
     def is_element_value_equal_to(self, value, *loc):
         try:
-            WebDriverWait(self.driver, WAIT_TIMER).until(EC.visibility_of_element_located(*loc))
-            element_value = self.driver.find_element(*loc).text()
-            return True if value is element_value else False
+            WebDriverWait(self.driver, WAIT_TIMER).until(EC.visibility_of_element_located(loc))
+            element_value = self.driver.find_element(*loc).text
+            return True if value == element_value else False
         except TimeoutException:
             return False
 

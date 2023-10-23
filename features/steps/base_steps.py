@@ -3,7 +3,7 @@ import subprocess
 from behave import *
 
 
-@Given('The app loads the {page} page')
+@Given('The app loads the "{page}" page')
 def step_impl(context, page):
     if page.upper() == 'LOGIN':
         subprocess.Popen(
