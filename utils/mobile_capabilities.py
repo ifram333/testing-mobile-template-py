@@ -3,8 +3,8 @@ iphone_xs_max_ios_16_6 = {
     "platformVersion": "16.6",
     "deviceName": "iPhone Xs Max",
     "automationName": "XCUITest",
-    "udid": "00008020-00093C613AB8003A",
-    "xcodeOrgId": "5JZ49M8U7N",
+    "udid": "########-################",
+    "xcodeOrgId": "###########",
     "xcodeSigningId": "iPhone Developer",
     "appInstallStrategy": "ios-deploy",
     "wdaLocalPort": "8100"
@@ -20,7 +20,7 @@ sim_iphone_14_ios_16_2 = {
 
 google_pixel_7_android_13 = {
     "platformName": "Android",
-    "deviceName": "35111FDH20053N",
+    "deviceName": "#############",
     "automationName": "UiAutomator2",
     "systemPort": "8200"
 }
