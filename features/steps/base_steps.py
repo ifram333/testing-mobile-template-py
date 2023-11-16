@@ -3,7 +3,7 @@ import subprocess
 from behave import *
 
 
-@Given('The app loads the "{page}" page')
+@given('The app loads the "{page}" page')
 def step_impl(context, page):
     if page.upper() == 'LOGIN':
         subprocess.Popen(
@@ -15,7 +15,7 @@ def step_impl(context, page):
             shell=True)
 
 
-@Given('I log in to the app with username "{username}" and password "{password}"')
+@given('I log in to the app with username "{username}" and password "{password}"')
 def step_impl(context, username, password):
     context.login_page.validate_page()
     context.login_page.send_keys_username_input(username)

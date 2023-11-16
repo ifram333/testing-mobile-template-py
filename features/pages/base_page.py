@@ -2,6 +2,12 @@ from selenium.common import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+import logging
+
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s.%(msecs)03d %(levelname)s %(name)s.%(funcName)s :: %(message)s',
+                    datefmt='%H:%M:%S')
+
 WAIT_TIMER = 20
 DIRECTIONS = {'up', 'down', 'left', 'right'}
 

@@ -1,4 +1,7 @@
+import logging
+
 from appium.webdriver.common.appiumby import AppiumBy
+from assertpy import assert_that, soft_assertions
 
 from features.pages.base_page import BasePage
 
@@ -20,45 +23,47 @@ class LogInPage(BasePage):
     # Button elements
     btn_login = (AppiumBy.ANDROID_UIAUTOMATOR, BasePage.no_scroll_description + 'Login button' + BasePage.no_scroll_wrapper)
 
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.logger = logging.getLogger(self.__class__.__name__)
+
     # Click methods
     def click_login_button(self):
         self.click(*self.btn_login)
-        print('Click "LOGIN" button')
+        self.logger.info('Click "LOGIN" button')
 
     # Send Keys methods
     def send_keys_username_input(self, username):
         self.send_keys(username, *self.txt_username)
-        print('Fill "USERNAME" with value ' + username)
+        self.logger.info('Fill "USERNAME" with value ' + username)
 
     def send_keys_password_input(self, password):
         self.send_keys(password, *self.txt_password)
-        print('Fill "PASSWORD" with value ' + password)
+        self.logger.info('Fill "PASSWORD" with value ' + password)
 
     # Validation methods
     def validate_page(self):
-        assert self.is_element_value_equal_to('Login', *self.lbl_login) is True
-        assert self.is_element_found(*self.lbl_select_username_and_password) is True
-        assert self.is_element_value_equal_to('Username', *self.lbl_username) is True
-        assert self.is_element_found(*self.txt_username) is True
-        assert self.is_element_enabled(*self.txt_username) is True
-        assert self.is_element_value_equal_to('Password', *self.lbl_password) is True
-        assert self.is_element_found(*self.txt_password) is True
-        assert self.is_element_enabled(*self.txt_password) is True
-        assert self.is_element_found(*self.btn_login) is True
-        assert self.is_element_enabled(*self.btn_login) is True
-        print('The Login page is loaded correctly')
+        with soft_assertions():
+            assert_that(self.is_element_value_equal_to('Login', *self.lbl_login)).is_true()
+            assert_that(self.is_element_found(*self.lbl_select_username_and_password)).is_true()
+            assert_that(self.is_element_value_equal_to('Username', *self.lbl_username)).is_true()
+            assert_that(self.is_element_found(*self.txt_username)).is_true()
+            assert_that(self.is_element_enabled(*self.txt_username)).is_true()
+            assert_that(self.is_element_value_equal_to('Password', *self.lbl_password)).is_true()
+            assert_that(self.is_element_found(*self.txt_password)).is_true()
+            assert_that(self.is_element_enabled(*self.txt_password)).is_true()
+            assert_that(self.is_element_found(*self.btn_login)).is_true()
+            assert_that(self.is_element_enabled(*self.btn_login)).is_true()
+        self.logger.info('The Login page is loaded correctly')
 
     def validate_username_error_message(self):
-        assert self.is_element_found(*self.lbl_username_error_message) is True
-        assert self.is_element_value_equal_to('Username is required', *self.lbl_username_error_message) is True
-        print('The correct username error message (Username is required) is displayed')
+        assert_that(self.is_element_value_equal_to('Username is required', *self.lbl_username_error_message)).is_true()
+        self.logger.info('The correct username error message (Username is required) is displayed')
 
     def validate_password_error_message(self):
-        assert self.is_element_found(*self.lbl_password_error_message) is True
-        assert self.is_element_value_equal_to('Password is required', *self.lbl_password_error_message) is True
-        print('The correct username error message (Password is required) is displayed')
+        assert_that(self.is_element_value_equal_to('Password is required', *self.lbl_password_error_message)).is_true()
+        self.logger.info('The correct username error message (Password is required) is displayed')
 
     def validate_error_message(self, message):
-        assert self.is_element_found(*self.lbl_error_message) is True
-        assert self.is_element_value_equal_to(message, *self.lbl_error_message) is True
-        print('The correct username error message ('+message+') is displayed')
+        assert_that(self.is_element_value_equal_to(message, *self.lbl_error_message)).is_true()
+        self.logger.info('The correct username error message ('+message+') is displayed')
